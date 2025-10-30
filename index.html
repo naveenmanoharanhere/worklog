@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Daily Work Log</title>
+    <meta name="google-signin-client_id" content="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 400px;
+        margin: 80px auto;
+        text-align: center;
+      }
+      textarea, button {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+      }
+      #workForm { display: none; }
+    </style>
+  </head>
+  <body>
+    <h2>Daily Work Update</h2>
+
+    <div id="signinDiv"></div>
+
+    <div id="workForm">
+      <p id="userInfo"></p>
+      <textarea id="work" placeholder="Describe your work for today..."></textarea>
+      <button onclick="submitWork()">Submit</button>
+      <p id="result"></p>
+    </div>
+
+    <script>
+      const SCRIPT_URL = "YOUR_WEB_APP_URL_HERE";
+      let user = null;
+
+      window.onload = function() {
+        google.accounts.id.initialize({
+          client_id: "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com",
+          callback: handleCredentialResponse
+        });
+        google.accounts.id.renderButton(
+          document.getElementById("signinDiv"),
+          { theme: "outline", size: "large" }
+        );
+      };
+
+      function handleCredentialResponse(response) {
+        const payload = JSON.parse(atob(response.credential.split(".")[1]));
+        user = { name: payload.name, email: payload.email };
+        document.getElementById("signinDiv").style.display = "none";
+        document.getElementById("workForm").style.display = "block";
+        document.getElementById("userInfo").innerText = `Signed in as ${user.name}`;
+      }
+
+      async function submitWork() {
+        const work = document.getElementById("work").value.trim();
+        if (!work) return alert("Please enter your work.");
+
+        const res = await fetch(SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify({ ...user, work })
+        });
+        const data = await res.json();
+        document.getElementById("result").innerText =
+          data.status === "success" ? "✅ Work logged successfully!" : "❌ Error: " + data.message;
+
+        document.getElementById("work").value = "";
+      }
+    </script>
+  </body>
+</html>
