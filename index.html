@@ -37,7 +37,7 @@
 
       window.onload = function() {
         google.accounts.id.initialize({
-          client_id: "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com",
+          client_id: "430365555883-l52vqe5voir997h09bltp8ug4rtc879t.apps.googleusercontent.com",
           callback: handleCredentialResponse
         });
         google.accounts.id.renderButton(
@@ -58,17 +58,23 @@
         const work = document.getElementById("work").value.trim();
         if (!work) return alert("Please enter your work.");
 
-        const res = await fetch(SCRIPT_URL, {
-          method: "POST",
-          body: JSON.stringify({ ...user, work })
-        });
-        const data = await res.json();
-        document.getElementById("result").innerText =
-          data.status === "success" ? "✅ Work logged successfully!" : "❌ Error: " + data.message;
+        try {
+          const res = await fetch(SCRIPT_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...user, work })
+          });
 
-        document.getElementById("work").value = "";
+          const data = await res.json();
+          document.getElementById("result").innerText =
+            data.status === "success"
+              ? "✅ Work logged successfully!"
+              : "❌ " + data.message;
+          document.getElementById("work").value = "";
+        } catch (err) {
+          document.getElementById("result").innerText = "❌ Network or server error";
+        }
       }
     </script>
   </body>
 </html>
-
