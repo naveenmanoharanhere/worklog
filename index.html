@@ -8,7 +8,7 @@
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #2b0000, #660000);
+      background: url('https://wall.alphacoders.com/big.php?i=75732') center/cover no-repeat fixed;
       height: 100vh;
       display: flex;
       justify-content: center;
@@ -69,7 +69,7 @@
   <div class="card">
     <h1>🩸 Happy Birthday, Harshita 🩸</h1>
     <p>Tonight's the night... to celebrate you, Harshita. 🎂🩸</p>
-    <a href="#" class="btn">Celebrate 🎈</a>
+    <a href="#" class="btn" onclick="playTheme()">Play Theme 🎵</a>
   </div>
 
   <script>
@@ -86,5 +86,11 @@
     setInterval(createConfetti, 150);
   </script>
 
+  <audio id="dexterTheme" src="https://files.catbox.moe/xtd8x4.mp3"></audio>
+  <script>
+    function playTheme() {
+      document.getElementById('dexterTheme').play();
+    }
+  </script>
 </body>
 </html>
