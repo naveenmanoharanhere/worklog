@@ -12,7 +12,103 @@
       height: 100vh;
       display: flex;
       justify-content: center;
+      align-items: center;<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Harshita!</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('background.jpg') center/cover no-repeat fixed;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
       align-items: center;
+      overflow: hidden;
+    }
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      max-width: 400px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #b30000;
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
+
+    .btn {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background: #b30000;
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      display: inline-block;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #7a0000;
+    }
+
+    .confetti { position: absolute; width: 12px; height: 12px; background: #b30000; opacity: 0.9; animation: fall 4s linear infinite; border-radius: 2px; }
+
+    @keyframes fall {
+      0% { transform: translateY(-100vh) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>🩸 Happy Birthday, Harshita 🩸</h1>
+    <p>Tonight's the night... to celebrate you, Harshita. 🎂🩸</p>
+    <img src="play.png" alt="Play Theme" onclick="playTheme()" style="width:140px; cursor:pointer; margin-top:20px;">
+  </div>
+
+  <script>
+    function createConfetti() {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.background = `hsl(${Math.random()*360}, 80%, 60%)`;
+      confetti.style.animationDuration = (Math.random()*2 + 3) + 's';
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 4000);
+    }
+
+    setInterval(createConfetti, 150);
+  </script>
+
+  <audio id="dexterTheme" src="dexter_theme.mp3"></audio>
+  <script>
+    function playTheme() {
+      document.getElementById('dexterTheme').play();
+    }
+  </script>
+</body>
+</html>
+
       overflow: hidden;
     }
     .card {
@@ -86,7 +182,7 @@
     setInterval(createConfetti, 150);
   </script>
 
-  <audio id="dexterTheme" src="https://github.com/naveenmanoharanhere/worklog/blob/619e00e9830e4a2c00269b103e76b50e7b5234a8/theme.mp3"></audio>
+  <audio id="dexterTheme" src="https://raw.githubusercontent.com/naveenmanoharanhere/worklog/main/theme.mp3"></audio>
   <script>
     function playTheme() {
       document.getElementById('dexterTheme').play();
@@ -94,6 +190,7 @@
   </script>
 </body>
 </html>
+
 
 
 
