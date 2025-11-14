@@ -1,80 +1,90 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Daily Work Log</title>
-    <meta name="google-signin-client_id" content="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com">
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        max-width: 400px;
-        margin: 80px auto;
-        text-align: center;
-      }
-      textarea, button {
-        width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-      }
-      #workForm { display: none; }
-    </style>
-  </head>
-  <body>
-    <h2>Daily Work Update</h2>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Harshita!</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #2b0000, #660000);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      max-width: 400px;
+      animation: float 3s ease-in-out infinite;
+    }
 
-    <div id="signinDiv"></div>
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
 
-    <div id="workForm">
-      <p id="userInfo"></p>
-      <textarea id="work" placeholder="Describe your work for today..."></textarea>
-      <button onclick="submitWork()">Submit</button>
-      <p id="result"></p>
-    </div>
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #b30000;
+    }
 
-    <script>
-      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbjkArWuz6ZGkkdWpkTzrGVuRLE6zPS7qeCXAxmrB7KHJs_6w1uRJR4_2eokU6cmbT/exec";
-      let user = null;
+    p {
+      font-size: 1.1rem;
+    }
 
-      window.onload = function() {
-        google.accounts.id.initialize({
-          client_id: "430365555883-l52vqe5voir997h09bltp8ug4rtc879t.apps.googleusercontent.com",
-          callback: handleCredentialResponse
-        });
-        google.accounts.id.renderButton(
-          document.getElementById("signinDiv"),
-          { theme: "outline", size: "large" }
-        );
-      };
+    .btn {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background: #b30000;
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      display: inline-block;
+      transition: 0.3s;
+    }
 
-      function handleCredentialResponse(response) {
-        const payload = JSON.parse(atob(response.credential.split(".")[1]));
-        user = { name: payload.name, email: payload.email };
-        document.getElementById("signinDiv").style.display = "none";
-        document.getElementById("workForm").style.display = "block";
-        document.getElementById("userInfo").innerText = `Signed in as ${user.name}`;
-      }
+    .btn:hover {
+      background: #7a0000;
+    }
 
-      async function submitWork() {
-        const work = document.getElementById("work").value.trim();
-        if (!work) return alert("Please enter your work.");
+    .confetti { position: absolute; width: 12px; height: 12px; background: #b30000; opacity: 0.9; animation: fall 4s linear infinite; border-radius: 2px; }
 
-        try {
-          const res = await fetch(SCRIPT_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ ...user, work })
-          });
+    @keyframes fall {
+      0% { transform: translateY(-100vh) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
 
-          const data = await res.json();
-          document.getElementById("result").innerText =
-            data.status === "success"
-              ? "✅ Work logged successfully!"
-              : "❌ " + data.message;
-          document.getElementById("work").value = "";
-        } catch (err) {
-          document.getElementById("result").innerText = "❌ Network or server error";
-        }
-      }
-    </script>
-  </body>
+  <div class="card">
+    <h1>🩸 Happy Birthday, Harshita 🩸</h1>
+    <p>Tonight's the night... to celebrate you, Harshita. 🎂🩸</p>
+    <a href="#" class="btn">Celebrate 🎈</a>
+  </div>
+
+  <script>
+    function createConfetti() {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.background = `hsl(${Math.random()*360}, 80%, 60%)`;
+      confetti.style.animationDuration = (Math.random()*2 + 3) + 's';
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 4000);
+    }
+
+    setInterval(createConfetti, 150);
+  </script>
+
+</body>
 </html>
