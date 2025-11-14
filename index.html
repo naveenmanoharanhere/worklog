@@ -1,92 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Happy Birthday Harshita</title>
-<style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Harshita!</title>
+  <style>
     body {
-        margin: 0;
-        padding: 0;
-        background: url('background.jpg') no-repeat center center/cover;
-        height: 100vh;
-        overflow: hidden;
-        font-family: Arial, sans-serif;
-
-        /* custom cursor */
-        cursor: url('play.png') 16 16, auto;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://raw.githubusercontent.com/naveenmanoharanhere/worklog/main/thumb-1920-75732.jpg') center/cover no-repeat fixed;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      cursor: url('https://raw.githubusercontent.com/naveenmanoharanhere/worklog/main/button.png'), auto;
     }
 
-    .title {
-        position: absolute;
-        top: 8%;
-        width: 100%;
-        text-align: center;
-        color: white;
-        font-size: 48px;
-        font-weight: bold;
-        text-shadow: 0 0 15px red;
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      max-width: 400px;
+      animation: float 3s ease-in-out infinite;
     }
 
-    #playBtn {
-        position: absolute;
-        left: 50%;
-        bottom: 12%;
-        transform: translateX(-50%);
-        width: 160px;
-        cursor: url('play.png') 16 16, auto;
-        transition: transform 0.2s ease;
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
     }
 
-    #playBtn:hover {
-        transform: translateX(-50%) scale(1.1);
-        filter: drop-shadow(0 0 10px red);
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #b30000;
     }
 
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .play-img {
+      width: 140px;
+      cursor: pointer;
+    }
+
+    /* Blood droplet */
     .blood {
-        position: absolute;
-        width: 35px;
-        height: 35px;
-        pointer-events: none;
-        animation: fall 3s linear forwards;
+      position: absolute;
+      width: 10px;
+      height: 18px;
+      background: #8A0303;
+      border-radius: 50% 50% 50% 50% / 60% 60% 100% 100%;
+      filter: drop-shadow(0 0 3px #300);
+      animation: drip 3s linear infinite;
     }
 
-    @keyframes fall {
-        from { transform: translateY(-50px) rotate(0deg); opacity: 1; }
-        to   { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    @keyframes drip {
+      0% { transform: translateY(-10vh); opacity: 1; }
+      100% { transform: translateY(110vh); opacity: 0.2; }
     }
-</style>
+  </style>
 </head>
 <body>
 
-<div class="title">Happy Birthday, Harshita 🩸</div>
+  <div class="card">
+    <h1>🩸 Happy Birthday, Harshita 🩸</h1>
+    <p>Tonight’s the night… to celebrate you. 🎂🩸</p>
+    <img 
+      src="https://raw.githubusercontent.com/naveenmanoharanhere/worklog/main/button.png" 
+      alt="Play Theme" 
+      class="play-img"
+      onclick="playTheme()"
+    >
+  </div>
 
-<img id="playBtn" src="play.png" alt="Play">
+  <audio id="dexterTheme" src="https://raw.githubusercontent.com/naveenmanoharanhere/worklog/main/theme.mp3"></audio>
 
-<audio id="theme" src="dexter_theme.mp3"></audio>
-
-<script>
-    const theme = document.getElementById("theme");
-    const btn = document.getElementById("playBtn");
-
-    btn.addEventListener("click", () => {
-        theme.play();
-        startBloodRain();
-    });
-
-    function startBloodRain() {
-        setInterval(() => {
-            const drop = document.createElement("img");
-            drop.src = "droplet.png";
-            drop.className = "blood";
-            drop.style.left = Math.random() * window.innerWidth + "px";
-            drop.style.top = "-40px";
-
-            document.body.appendChild(drop);
-
-            drop.addEventListener("animationend", () => drop.remove());
-        }, 200);
+  <script>
+    function playTheme() {
+      document.getElementById('dexterTheme').play();
     }
-</script>
+
+    // Blood droplets
+    function createBlood() {
+      const drop = document.createElement('div');
+      drop.classList.add('blood');
+      drop.style.left = Math.random() * 100 + 'vw';
+      drop.style.animationDuration = (Math.random() * 2 + 2) + 's';
+      document.body.appendChild(drop);
+      setTimeout(() => drop.remove(), 4000);
+    }
+
+    setInterval(createBlood, 120);
+  </script>
 
 </body>
 </html>
